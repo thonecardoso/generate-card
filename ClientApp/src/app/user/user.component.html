@@ -1,0 +1,98 @@
+<div class="row">
+
+  <div class="col-sm-7">
+    <button class="btn btn-primary" (click)="setChangeRegisterList()">
+      {{ changeRegisterList ? 'Listar Usuários' : 'Cadastrar Usuário' }}
+    </button>
+    <br>
+    <br>
+
+    <div *ngIf="changeRegisterList">
+
+      <h1>Cadastro Usuário</h1>
+
+      <form [formGroup]="userFormGroup" (ngSubmit)="onSubmitting()">
+
+
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+                 [ngClass]="{'border-danger': !userFormGroup.controls.name.valid,'border-success': userFormGroup.controls.name.valid}"
+          >
+
+
+        </div>
+        <div class="form-group">
+          <label for="document">CPF</label>
+          <input type="text" class="form-control" id="document" formControlName="document"
+                 [ngClass]="{'border-danger': !userFormGroup.controls.document.valid,'border-success': userFormGroup.controls.document.valid}"
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email"
+                 [ngClass]="{'border-danger': !userFormGroup.controls.email.valid,'border-success': userFormGroup.controls.email.valid}"
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">SALVAR</button>
+      </form>
+
+    </div>
+
+    <div *ngIf="!changeRegisterList">
+
+      <h1 id="tableLabel">Cadastro de Usuários</h1>
+
+      <p>Para listar os cartões do usuário click na linha em que ele está listado</p>
+
+      <p *ngIf="!users"><em>Loading...</em></p>
+
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.document }}</td>
+          <td>{{ user.email }}</td>
+          <th>
+            <button class="btn btn-success" (click)="setCurrentUser(user)">Cartões</button>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+
+
+  </div>
+
+  <div class="col-sm-4">
+    <h5>Cliente {{currentUser.name}}</h5>
+    <button class="btn btn-success btn-block" (click)="generateCard(currentUser.email)">Gerar Cartão</button>
+    <div *ngFor="let card of currentUser.cards">
+      <div  class="credCard">
+        <span>VaiVoa Card</span>
+        <hr>
+        <span>Número: {{card.number}}</span>
+        <br>
+        <span>Data de Validade: {{card.validate | date:'MM/yy'}}</span>
+        <br>
+        <span>Cliente: {{currentUser.name}}</span>
+        <br>
+        <span>CVV: {{card.securityCode}}</span>
+      </div>
+    </div>
+  </div>
+
+
+</div>
