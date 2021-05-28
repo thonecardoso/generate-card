@@ -20,16 +20,9 @@ namespace generate_card.Service
             return addedUser;
         }
 
-        public User Update(int id, User user)
+        public User GetOne(string email)
         {
-            VerifyIfExists(id);
-            user.LastModifiedDate = DateTime.Now;
-            return _userRepository.Update(user);
-        }
-
-        public User GetOne(int id)
-        {
-            var foundUser = _userRepository.Get(id);
+            var foundUser = _userRepository.getUserByEmail(email);
             if (foundUser == null)
             {
                 throw new Exception("User not found");
@@ -38,29 +31,23 @@ namespace generate_card.Service
             return foundUser;
         }
 
-        public List<User> GetAll()
+        public void Delete(string email)
         {
-            return _userRepository.GetAll();
+            VerifyIfExists(email);
+            _userRepository.DeleteByEmail(email);
         }
-
-        public void Delete(int id)
-        {
-            VerifyIfExists(id);
-            _userRepository.Delete(id);
-        }
-
-        private void VerifyIfExists(int id)
-        {
-            if (!_userRepository.VerifyIfExists(id))
-            {
-                throw new Exception("User not found");
-            }
-        }
-
 
         public List<User> GetAllFullUsers()
         {
-           return _userRepository.getAllFullUsers();
+            return _userRepository.getAllFullUsers();
+        }
+
+        private void VerifyIfExists(string email)
+        {
+            if (!_userRepository.VerifyIfExists(email))
+            {
+                throw new Exception("User not found");
+            }
         }
     }
 }

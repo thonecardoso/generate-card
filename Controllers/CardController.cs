@@ -25,5 +25,14 @@ namespace generate_card.Controllers
         {
             return _service.CreatedCard(email);
         }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public void Delete(int id)
+        {
+            _service.Delete(id);
+        }
+        
     }
 }

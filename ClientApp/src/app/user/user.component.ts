@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class UserComponent implements OnInit {
 
-  changeRegisterList: boolean = false;
+  changeRegisterList = false;
   currentUser: User;
   users: User[];
   userFormGroup: FormGroup;
@@ -19,11 +19,16 @@ export class UserComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {
     http.get<User[]>(baseUrl + 'api/v1/User/all').subscribe(result => {
       this.users = result;
-      this.currentUser = this.users[0];
-    }, error => console.error(error));
+      console.log(this.users);
+    }, error => console.error('Erro getAllUsers: ' + error));
 
-    this.setFormGroup();
-    this.router.navigate(['/']);
+
+    this.userFormGroup = this.fb.group({
+      name: ['', Validators.required],
+      document: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+    console.log(this.userFormGroup);
   }
 
   ngOnInit() {
@@ -35,14 +40,12 @@ export class UserComponent implements OnInit {
 
   setCurrentUser(user: User): void {
     this.currentUser = user;
-    console.log(user);
   }
 
   onSubmitting() {
     const userToPost: User = this.userFormGroup.value;
     this.http.post<User[]>(this.baseUrl + 'api/v1/User', userToPost).subscribe(result => {
       this.users = result;
-      this.currentUser = this.users[0];
     }, error => console.error(error));
     this.setChangeRegisterList();
     this.setFormGroup();
@@ -50,7 +53,6 @@ export class UserComponent implements OnInit {
 
   setFormGroup(): void {
     this.userFormGroup = this.fb.group({
-      id: new FormControl(0),
       name: ['', Validators.required],
       document: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
@@ -58,7 +60,6 @@ export class UserComponent implements OnInit {
   }
 
   generateCard(email: string) {
-    // this.http.post<User>(this.baseUrl + 'api/v1/Card?email=' + email, '').subscribe(result => {
     this.http.post<User>(this.baseUrl + 'api/v1/Card',  { email } ).subscribe(result => {
       // this.currentUser = result;
       console.log(result);
@@ -67,7 +68,6 @@ export class UserComponent implements OnInit {
 }
 
 interface User {
-  id: number;
   name: string;
   document: string;
   email: string;

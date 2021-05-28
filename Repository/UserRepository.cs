@@ -23,18 +23,57 @@ namespace generate_card.Repository
         {
             var users = _context
                 .Set<User>()
-                // .Include(user => user.Cards)
                 .ToList();
 
             foreach (var user in users)
             {
                 user.Cards = _context
                     .Set<Card>()
-                    .Where(card => card.UserId == user.Id)
+                    .Where(card => card.UserEmail == user.Email)
                     .ToList();
             }
 
             return users;
+        }
+        
+        public bool VerifyIfExists(string email)
+        {
+            return _context
+                .Set<User>()
+                .Any(entity => entity.Email == email);
+        }
+        
+        public User DeleteByEmail(string email)
+        {
+            User entity = _context.Set<User>()
+                .Find(email);
+
+            if (entity == null)
+            {
+                return null;
+            }
+
+            _context.Set<User>().Remove(entity);
+            _context.SaveChanges();
+
+            return entity;
+        }
+        
+        public User getUserByEmail(string email)
+        {
+            var foundUser = _context
+                .Set<User>()
+                .Find(email);
+
+            
+            foundUser.Cards = _context
+                    .Set<Card>()
+                    .Where(card => card.UserEmail == email)
+                    .ToList()
+                    .OrderBy(x => x.CreatedDate)
+                    .ToList();
+
+            return foundUser;
         }
     }
 }

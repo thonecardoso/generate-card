@@ -9,8 +9,8 @@ using generate_card.Context;
 namespace generate_card.Migrations
 {
     [DbContext(typeof(GenerateCardContext))]
-    [Migration("20210527170031_asdf")]
-    partial class asdf
+    [Migration("20210528112050_entity")]
+    partial class entity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,32 +37,28 @@ namespace generate_card.Migrations
                     b.Property<int>("SecurityCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("Validate")
                         .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("Card");
                 });
 
             modelBuilder.Entity("generate_card.Entity.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("DocumentIdentificationNumber")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Email")
+                    b.Property<string>("Document")
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime?>("LastModifiedDate")
@@ -71,7 +67,7 @@ namespace generate_card.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.ToTable("User");
                 });
@@ -80,9 +76,7 @@ namespace generate_card.Migrations
                 {
                     b.HasOne("generate_card.Entity.User", "User")
                         .WithMany("Cards")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserEmail");
 
                     b.Navigation("User");
                 });

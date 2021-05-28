@@ -55,11 +55,6 @@ namespace generate_card.Repository
             return entity;
         }
 
-        public bool VerifyIfExists(int id)
-        {
-            return _context
-                .Set<TEntity>()
-                .Any(entity => entity.Id.Equals(id));
-        }
+        
     }
 }

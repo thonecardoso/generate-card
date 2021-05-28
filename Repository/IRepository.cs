@@ -10,6 +10,5 @@ namespace generate_card.Repository
         T Add(T entity);
         T Update(T entity);
         T Delete(int id);
-        bool VerifyIfExists(int id);
     }
 }

@@ -20,19 +20,12 @@ namespace generate_card.Controllers
             _userService = userService;
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("{email}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<User> GetById(int id)
+        public ActionResult<User> GetById(string email)
         {
-            return _userService.GetOne(id);
-        }
-        
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<User>> GetAll()
-        {
-            return _userService.GetAll();
+            return _userService.GetOne(email);
         }
 
         [HttpPost]
@@ -42,27 +35,18 @@ namespace generate_card.Controllers
         {
             return _userService.Create(user);
         }
-
-        [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public User Update(int id, User user)
-        {
-            return _userService.Update(id, user);
-        }
         
-        [HttpDelete("{id}")]
+        [HttpDelete("{email}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public void Delete(int id)
+        public void Delete(string email)
         {
-            _userService.Delete(id);
+            _userService.Delete(email);
         }
 
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public List<User> GetAllFullUsers()
+        public ActionResult<List<User>> GetAllFullUsers()
         {
             return _userService.GetAllFullUsers();
         }

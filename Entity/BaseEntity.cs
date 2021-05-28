@@ -11,7 +11,6 @@ namespace generate_card.Entity
             LastModifiedDate = DateTime.Now;
         }
         
-        public int Id { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? LastModifiedDate { get; set; }
     }

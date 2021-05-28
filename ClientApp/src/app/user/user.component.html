@@ -38,6 +38,7 @@
       </form>
 
     </div>
+<!--
 
     <div *ngIf="!changeRegisterList">
 
@@ -50,7 +51,6 @@
       <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
         <thead>
         <tr>
-          <th>Id</th>
           <th>Nome</th>
           <th>CPF</th>
           <th>Email</th>
@@ -59,7 +59,6 @@
         </thead>
         <tbody>
         <tr *ngFor="let user of users">
-          <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.document }}</td>
           <td>{{ user.email }}</td>
@@ -73,10 +72,11 @@
 
     </div>
 
+-->
 
   </div>
 
-  <div class="col-sm-4">
+<!--  <div class="col-sm-4">
     <h5>Cliente {{currentUser.name}}</h5>
     <button class="btn btn-success btn-block" (click)="generateCard(currentUser.email)">Gerar Cartão</button>
     <div *ngFor="let card of currentUser.cards">
@@ -92,7 +92,7 @@
         <span>CVV: {{card.securityCode}}</span>
       </div>
     </div>
-  </div>
+  </div>-->
 
 
 </div>

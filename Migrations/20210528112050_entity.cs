@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace generate_card.Migrations
 {
-    public partial class Sample : Migration
+    public partial class entity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,18 +12,15 @@ namespace generate_card.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(type: "varchar(255)", nullable: false),
                     Name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    DocumentIdentificationNumber = table.Column<string>(type: "varchar(255)", nullable: true),
-                    Email = table.Column<string>(type: "varchar(255)", nullable: true),
-                    IsDisable = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Document = table.Column<string>(type: "varchar(255)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,7 +32,7 @@ namespace generate_card.Migrations
                     Number = table.Column<string>(type: "varchar(50)", nullable: true),
                     Validate = table.Column<DateTime>(type: "datetime", nullable: false),
                     SecurityCode = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserEmail = table.Column<string>(type: "varchar(255)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -43,17 +40,17 @@ namespace generate_card.Migrations
                 {
                     table.PrimaryKey("PK_Card", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Card_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Card_User_UserEmail",
+                        column: x => x.UserEmail,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Card_UserId",
+                name: "IX_Card_UserEmail",
                 table: "Card",
-                column: "UserId");
+                column: "UserEmail");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

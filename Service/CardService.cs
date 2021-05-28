@@ -26,7 +26,6 @@ namespace generate_card.Service
                 throw new Exception("User not found");
             }
 
-            //var number = "654321";
             var size = 16;
             var builder = new StringBuilder(size);
             char offset = '0';
@@ -43,15 +42,26 @@ namespace generate_card.Service
             card.Validate = DateTime.Now.AddYears(5);
             card.User = user;
             card.SecurityCode = _random.Next(100, 999);
-            card.UserId = user.Id;
+            card.UserEmail = user.Email;
             
             //user.Cards.Add(card);
 
             _cardRepository.Add(card);
 
-            return _userRepository.Get(user.Id);
+            return _userRepository.findByEmail(email);
 
         }
+
+        public void Delete(int id)
+        {
+            var card = _cardRepository.Get(id);
+            if (card == null)
+            {
+                throw new Exception("Card not found exception");
+            }
+            _cardRepository.Delete(id);
+        }
+        
         
     }
 }
