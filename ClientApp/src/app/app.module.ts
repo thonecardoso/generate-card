@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserComponent } from './user/user.component';
 import { CardComponent } from './card/card.component';
 import { ListUserComponent } from './list-user/list-user.component';
@@ -19,8 +17,6 @@ import { GenerateCardComponent } from './generate-card/generate-card.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     UserComponent,
     CardComponent,
     ListUserComponent,
