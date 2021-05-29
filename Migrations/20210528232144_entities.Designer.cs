@@ -9,8 +9,8 @@ using generate_card.Context;
 namespace generate_card.Migrations
 {
     [DbContext(typeof(GenerateCardContext))]
-    [Migration("20210528112050_entity")]
-    partial class entity
+    [Migration("20210528232144_entities")]
+    partial class entities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

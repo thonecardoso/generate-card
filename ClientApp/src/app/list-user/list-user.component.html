@@ -1,0 +1,30 @@
+<h1>Listar Usuário</h1>
+
+<p *ngIf="!users"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>CPF</th>
+    <th>Email</th>
+    <th>Qt Cartões</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users; let i = index">
+    <td>{{ user.name }}</td>
+    <td>{{ user.document }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.cards.length }}</td>
+    <th>
+      <button class="btn btn-success" [routerLink]="['/generate-card', user.email]">Cartões</button>
+    </th>
+    <th>
+      <button class="btn btn-danger"  (click)="delete(user.email, i)">Excluir</button>
+    </th>
+  </tr>
+  </tbody>
+</table>

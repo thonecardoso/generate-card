@@ -23,7 +23,7 @@ namespace generate_card.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public User CreatedCard(string email)
         {
-            return _service.CreatedCard(email);
+            return _service.CreateCard(email);
         }
 
         [HttpDelete]

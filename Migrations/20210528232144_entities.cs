@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace generate_card.Migrations
 {
-    public partial class entity : Migration
+    public partial class entities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,7 +44,7 @@ namespace generate_card.Migrations
                         column: x => x.UserEmail,
                         principalTable: "User",
                         principalColumn: "Email",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -18,7 +18,7 @@ namespace generate_card.Service
             _cardRepository = cardRepository;
         }
 
-        public User CreatedCard(string email)
+        public User CreateCard(string email)
         {
             var user = _userRepository.findByEmail(email);
             if (user == null)

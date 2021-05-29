@@ -1,0 +1,41 @@
+<h1>Gerar Cartão</h1>
+
+<div class="container">
+  <div>
+    <p>Cliente: {{user.name}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Cpf: {{user.document}}</p>
+    <p>Total de Cartões: {{user.cards.length}}</p>
+  </div>
+  <div>
+    <h4>Carregar Outro usuário</h4>
+    <div>
+      <label for="email">
+        <input type="email" id="email" class="form-control"
+               placeholder="Digite o email do usuário"
+               (blur)="loadUser(email.value)"
+               (keyup.enter)="loadUser(email.value)" #email>
+      </label>
+    </div>
+  </div>
+  <hr>
+  <button class="btn btn-success btn-block" (click)="generateCard(user.email)">Gerar Cartão</button>
+  <div class="flex">
+    <div *ngFor="let card of user.cards; let i = index">
+      <div class="credCard">
+        <span>VaiVoa Card</span>
+        <hr>
+        <span>Número: {{card.number}}</span>
+        <br>
+        <span>Data de Validade: {{card.validate | date:'MM/yy'}}</span>
+        <br>
+        <span>Cliente: {{user.name}}</span>
+        <br>
+        <span>CVV: {{card.securityCode}}</span>
+        <br>
+        <span>Gerado em: {{card.createdDate}}</span>
+        <button class="btn btn-danger btn-sm" (click)="delete(card.id, i)">Excluir: {{card.number}}</button>
+      </div>
+    </div>
+  </div>
+</div>

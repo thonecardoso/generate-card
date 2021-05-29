@@ -16,9 +16,11 @@ export class CardComponent implements OnInit {
 
 }
 
+
 export interface Card {
   id: number;
   number: string;
   validate: Date;
   securityCode: number;
+  createdDate: Date;
 }

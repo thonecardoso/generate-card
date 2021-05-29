@@ -12,15 +12,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class UserComponent implements OnInit {
 
   changeRegisterList = false;
-  currentUser: User;
   users: User[];
   userFormGroup: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {
-    http.get<User[]>(baseUrl + 'api/v1/User/all').subscribe(result => {
-      this.users = result;
-      console.log(this.users);
-    }, error => console.error('Erro getAllUsers: ' + error));
+
 
 
     this.userFormGroup = this.fb.group({
@@ -34,20 +30,11 @@ export class UserComponent implements OnInit {
   ngOnInit() {
   }
 
-  setChangeRegisterList(): void {
-    this.changeRegisterList = !this.changeRegisterList;
-  }
-
-  setCurrentUser(user: User): void {
-    this.currentUser = user;
-  }
-
   onSubmitting() {
     const userToPost: User = this.userFormGroup.value;
     this.http.post<User[]>(this.baseUrl + 'api/v1/User', userToPost).subscribe(result => {
       this.users = result;
     }, error => console.error(error));
-    this.setChangeRegisterList();
     this.setFormGroup();
   }
 
@@ -59,15 +46,10 @@ export class UserComponent implements OnInit {
     });
   }
 
-  generateCard(email: string) {
-    this.http.post<User>(this.baseUrl + 'api/v1/Card',  { email } ).subscribe(result => {
-      // this.currentUser = result;
-      console.log(result);
-    }, error => console.error(error));
-  }
+
 }
 
-interface User {
+export interface User {
   name: string;
   document: string;
   email: string;

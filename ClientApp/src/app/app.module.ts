@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserComponent } from './user/user.component';
 import { CardComponent } from './card/card.component';
+import { ListUserComponent } from './list-user/list-user.component';
+import { GenerateCardComponent } from './generate-card/generate-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { CardComponent } from './card/card.component';
     CounterComponent,
     FetchDataComponent,
     UserComponent,
-    CardComponent
+    CardComponent,
+    ListUserComponent,
+    GenerateCardComponent
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -28,8 +32,9 @@ import { CardComponent } from './card/card.component';
         FormsModule,
         RouterModule.forRoot([
             {path: '', component: HomeComponent, pathMatch: 'full'},
-            {path: 'counter', component: CounterComponent},
-            {path: 'fetch-data', component: FetchDataComponent},
+            {path: 'registerUser', component: UserComponent},
+            {path: 'generate-card/:email', component: GenerateCardComponent},
+            {path: 'generate-card', component: GenerateCardComponent},
         ]),
         ReactiveFormsModule
     ],
