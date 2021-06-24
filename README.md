@@ -74,13 +74,13 @@ aplicação consiga se comunicar com a base de dados.
 Após essas configurações utilizaremos o tools do Entity Framework no terminal para gerar as Migrations seguindo os
 seguintes comandos:  
 </br>
-Add dotnet tools:
+Adicionar ferramentas do dotnet na aplicação:
 
 ```console
 dotnet new tool-manifest
 ```
 
-Install dotnet tools:
+Instalar as ferramentas do dotnet:
 
 ```console
 dotnet tool install dotnet-ef
@@ -92,7 +92,7 @@ Criar os scripts de Migração:
 dotnet ef migrations add Sample
 ```
 
-Rodar os scripts para atualizar o banco de dados:
+Executar os scripts para atualizar o banco de dados:
 
 ```console
 dotnet ef database update
